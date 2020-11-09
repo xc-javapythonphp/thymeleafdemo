@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1 th:text="${message}"></h1>
+    <p><img th:src="${src.src1}"/></p>
+
+
+    <h1 th:text="${href}"></h1>
+
+    <!-- th:if 条件成立就显示 -->
+    <h1 th:if="${flag=='yes'}" >条件成立显示</h1>
+    <!-- th:unless 条件不成立就显示 -->
+    <h1 th:unless="${flag=='no'}" >条件不成立也显示</h1>
+
+<div th:switch="${menu}">
+    <p th:case="'admin'">User is an administrator</p>
+    <p th:case="'user'">User is an user</p>
+
+</div>
+<div>
+    时间：<span th:text="${#dates.format(date,'yyyy-MM-dd HH:mm:ss')}"></span></br>
+    金额：<span th:text="'￥'+${#numbers.formatDecimal(price, 1, 2)}"></span> </br>
+    <!-- # 这里的含义是 如果 atc.text 这个变量多余200个字符，后面显示... -->
+    <p th:text="${#strings.abbreviate(strText,12)}">内容内容内容</p>
+
+    <!-- 判断字符串是否为空 -->
+    <span th:if="${!#strings.isEmpty(strText)}">字符串str不为空</span></br>
+    <!-- 截取字符串，指定长度 -->
+    <span th:text="${#strings.substring(strText,2,4)}"></span>
+</div>
+
+    <!-- 保留自己的主标签，不要片段的主标签 -->
+    <div th:insert="~{footer :: copy}"></div>
+    <div th:insert="~{footer.html :: copy}"></div>
+</body>
+</html>
